@@ -1,6 +1,7 @@
 const questionInput = document.getElementById("questionInput");
 const petitionInput = document.getElementById("petitionInput");
 const buttonSubmit = document.getElementById("buttonSubmit");
+const buttonReset = document.getElementById("buttonReset");
 const userTypedTextParagraph = document.getElementById("userTypedTextParagraph");
 
 const replacementText = 'Neel Always Knows All and Everything';
@@ -11,6 +12,15 @@ let actualText = '';
 buttonSubmit.addEventListener('click', function() {
     loop = false;
     userTypedTextParagraph.textContent = `${userTypedText}`;
+});
+
+buttonReset.addEventListener('click', function() { 
+    loop = true;
+    actualText = '';
+    petitionInput.value = '';
+    userTypedTextParagraph.textContent = '';
+    userTypedText = 'Wrong Petition';
+    questionInput.value ='';
 });
 
 petitionInput.addEventListener('input', function(event) {
