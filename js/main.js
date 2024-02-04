@@ -27,7 +27,7 @@ petitionInput.addEventListener('keydown', function(e){
     if (e.key === 'Backspace' && loop){
         userTypedText = userTypedText.slice(0,-1);
         actualText = ';' + petitionInput.value.slice(0, -1);
-        petitionInput.value = actualText;
+        petitionInput.value = actualText.slice(1);
         e.preventDefault(); 
     }
 });
