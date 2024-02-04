@@ -1,30 +1,33 @@
 const questionInput = document.getElementById("questionInput");
 const petitionInput = document.getElementById("petitionInput");
 const buttonSubmit = document.getElementById("buttonSubmit");
+const userTypedTextParagraph = document.getElementById("userTypedTextParagraph");
 
-let currentTypedText = ''; // Variable to store the typed text after semicolon
+const replacementText = 'Neel Always Knows All and Everything';
+let userTypedText = 'Wrong Petition';
+let loop = true;
+let actualText = '';
 
-petitionInput.addEventListener('input', function (event) {
-    const inputValue = petitionInput.value;
-
-    if (inputValue.startsWith(';')) {
-        const replacementPhrase = 'Neel Always Knows All and Everything';
-        const typedCharacters = inputValue.slice(1); // Exclude the semicolon
-        const replacedCharacters = Array.from(typedCharacters).map((char, index) => {
-            return replacementPhrase[index % replacementPhrase.length];
-        }).join('');
-
-        currentTypedText = ';' + replacedCharacters;
-
-
-        petitionInput.value = currentTypedText; // Display the semicolon and replaced characters
-    } else {
-        currentTypedText = inputValue;
-        document.getElementById('buttonSubmit').innerText = 'Typed Text: ' + currentTypedText;
-    }
+buttonSubmit.addEventListener('click', function() {
+    loop = false;
+    userTypedTextParagraph.textContent = `${userTypedText}`;
 });
 
-buttonSubmit.addEventListener('click', function () {
-    console.log('Typed Text:', currentTypedText);
-    // You can save the 'currentTypedText' variable to another variable or perform any other actions here
+petitionInput.addEventListener('input', function(event) {
+    actualText = actualText + petitionInput.value.slice(-1);
+    if (actualText.includes(';') && loop) {
+        const userInput = actualText.split(';')[1];
+        const arrayReplace = replacementText.slice(0, userInput.length);
+        petitionInput.value = `${arrayReplace}`;
+         
+        userTypedText = userInput;
+    }
+});
+petitionInput.addEventListener('keydown', function(e){
+    if (e.key === 'Backspace' && loop){
+        userTypedText = userTypedText.slice(0,-1);
+        actualText = ';' + petitionInput.value.slice(0, -1);
+        petitionInput.value = actualText;
+        e.preventDefault(); 
+    }
 });
