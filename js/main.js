@@ -24,10 +24,12 @@ petitionInput.addEventListener('input', function(event) {
     }
 });
 petitionInput.addEventListener('keydown', function(e){
+    if (actualText.includes(';')){
     if (e.key === 'Backspace' && loop){
         userTypedText = userTypedText.slice(0,-1);
         actualText = ';' + petitionInput.value.slice(0, -1);
         petitionInput.value = actualText.slice(1);
         e.preventDefault(); 
+    }
     }
 });
